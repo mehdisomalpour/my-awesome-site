@@ -1,0 +1,511 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title> یکی از طراحی سایت های مهدی سمالپور </title>
+
+  <!-- فونت -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Vazirmatn:wght@300;400;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#0f1724;
+      --glass: rgba(255,255,255,0.06);
+      --glass-2: rgba(255,255,255,0.04);
+      --accent1: #7c5cff;
+      --accent2: #00d4ff;
+      --text: #e6eef8;
+      --muted: #9fb0c8;
+      --card: rgba(255,255,255,0.03);
+      --radius: 14px;
+      --glass-border: rgba(255,255,255,0.06);
+      font-family: "Vazirmatn", "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+    /* حالت روشن */
+    :root.light{
+      --bg: #f5f8ff;
+      --glass: rgba(10,15,25,0.03);
+      --glass-2: rgba(10,15,25,0.02);
+      --accent1: #6b46ff;
+      --accent2: #0ea5a4;
+      --text: #082032;
+      --muted: #374151;
+      --card: rgba(2,6,23,0.04);
+      --glass-border: rgba(2,6,23,0.06);
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      background:
+        radial-gradient(600px 300px at 10% 10%, rgba(124,92,255,0.12), transparent 10%),
+        radial-gradient(500px 250px at 90% 90%, rgba(0,212,255,0.08), transparent 12%),
+        var(--bg);
+      color:var(--text);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      overflow-x:hidden;
+    }
+
+    /* کانتینر کلی */
+    .wrap{
+      min-height:100vh;
+      display:flex;
+      flex-direction:column;
+      position:relative;
+    }
+
+    /* نِوِبار */
+    header{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      padding:20px clamp(18px,3vw,36px);
+      position:relative;
+      z-index:5;
+    }
+    .brand{
+      display:flex;
+      gap:12px;
+      align-items:center;
+      text-decoration:none;
+      color:var(--text);
+    }
+    .logo{
+      width:48px;height:48px;border-radius:12px;
+      background:linear-gradient(135deg,var(--accent1),var(--accent2));
+      display:grid;place-items:center;
+      box-shadow: 0 6px 24px rgba(2,6,23,0.3);
+      font-weight:800;color:white;font-size:18px;
+    }
+    nav{display:flex;gap:14px;align-items:center}
+    nav a{
+      color:var(--muted);
+      text-decoration:none;
+      font-weight:600;
+      padding:8px 12px;border-radius:10px;
+    }
+    nav a:hover{color:var(--text);background:var(--glass);}
+
+    .controls{display:flex;gap:10px;align-items:center}
+
+    /* هِرو */
+    .hero{
+      padding:60px clamp(18px,4vw,72px);
+      display:grid;
+      grid-template-columns: 1fr 420px;
+      gap:36px;
+      align-items:center;
+      z-index:4;
+    }
+    .title{
+      font-size:clamp(28px,4.2vw,44px);
+      line-height:1.03;
+      margin:0 0 14px 0;
+      font-weight:800;
+      letter-spacing:-0.02em;
+    }
+    .lead{color:var(--muted);font-size:16px;margin-bottom:22px;max-width:70%}
+    .cta-row{display:flex;gap:12px;align-items:center}
+    .btn{
+      background:linear-gradient(90deg,var(--accent1),var(--accent2));
+      color:white;padding:12px 18px;border-radius:12px;border:0;font-weight:700;cursor:pointer;
+      box-shadow: 0 10px 30px rgba(124,92,255,0.14);
+    }
+    .btn.secondary{
+      background:transparent;border:1px solid var(--glass-border);color:var(--text);
+      box-shadow:none;
+    }
+
+    /* کارت نمایشی */
+    .showcase{
+      background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
+      padding:18px;border-radius:18px;border:1px solid var(--glass-border);
+      backdrop-filter: blur(8px);
+      box-shadow: 0 8px 40px rgba(2,6,23,0.35);
+    }
+    .preview{
+      width:100%;height:260px;border-radius:12px;overflow:hidden;border:1px solid rgba(255,255,255,0.03);
+      background:linear-gradient(135deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      display:grid;place-items:center;color:var(--muted);font-weight:700;
+    }
+    .meta{display:flex;gap:8px;margin-top:12px;justify-content:space-between;align-items:center;flex-wrap:wrap}
+    .tag{font-size:12px;padding:8px 10px;border-radius:10px;background:var(--glass-2);color:var(--muted)}
+
+    /* پروژه‌ها */
+    .projects{
+      padding:24px clamp(18px,4vw,72px);
+      display:grid;
+      grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
+      gap:18px;
+    }
+    .card{
+      background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
+      border-radius:14px;padding:16px;border:1px solid var(--glass-border);
+      transition:transform .36s cubic-bezier(.2,.9,.3,1), box-shadow .36s;
+      cursor:pointer;
+    }
+    .card:hover{transform:translateY(-8px);box-shadow:0 18px 40px rgba(2,6,23,0.35)}
+    .card h4{margin:0 0 8px 0}
+    .card p{margin:0;color:var(--muted);font-size:14px}
+
+    /* footer */
+    footer{
+      padding:28px clamp(18px,3vw,36px);
+      margin-top:auto;
+      color:var(--muted);
+      font-size:14px;
+    }
+
+    /* modal */
+    .modal{
+      position:fixed;inset:0;display:grid;place-items:center;background:rgba(2,6,23,0.6);
+      opacity:0;pointer-events:none;transition:opacity .25s;
+      z-index:50;padding:24px;
+    }
+    .modal.open{opacity:1;pointer-events:auto}
+    .modal-card{
+      width:min(920px,98%);background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
+      border-radius:16px;padding:20px;border:1px solid var(--glass-border);backdrop-filter:blur(8px);
+    }
+    .close{background:transparent;border:0;color:var(--muted);font-weight:700;cursor:pointer}
+
+    /* responsive */
+    @media (max-width:920px){
+      .hero{grid-template-columns:1fr;gap:18px;padding-bottom:8px}
+      .lead{max-width:100%}
+    }
+
+    /* افکت کوچک برای موس */
+    .cursor{
+      position:fixed;left:0;top:0;width:14px;height:14px;background:transparent;border:2px solid var(--accent2);
+      border-radius:50%;transform:translate(-50%,-50%);pointer-events:none;z-index:9999;mix-blend-mode:screen;
+      transition:width .12s height .12s background .12s border-color .12s;
+    }
+    .cursor.big{width:42px;height:42px;border-width:1px;background:rgba(0,0,0,0.06)}
+  </style>
+</head>
+<body>
+  <div class="wrap" id="app">
+    <!-- پس‌زمینه canvas برای ذرات -->
+    <canvas id="bgCanvas" style="position:fixed;inset:0;z-index:0"></canvas>
+
+    <header>
+      <a class="brand" href="#">
+        <div class="logo">خ</div>
+        <div>
+          <div style="font-weight:700">سایت خفن</div>
+          <div style="font-size:12px;color:var(--muted)">نسخه نمایشی</div>
+        </div>
+      </a>
+
+      <nav aria-label="منو">
+        <a href="#projects">پروژه‌ها</a>
+        <a href="#about">درباره</a>
+        <a href="#contact">تماس</a>
+      </nav>
+
+      <div class="controls">
+        <button id="themeToggle" class="btn secondary" title="تغییر حالت">تاریک / روشن</button>
+      </div>
+    </header>
+
+    <main style="z-index:3">
+      <section class="hero" aria-labelledby="hero-title">
+        <div>
+          <h1 id="hero-title" class="title">یه سایت پر از انگیزه</h1>
+          <p class="lead">اینجا نمونه‌ای از UI زیبا، انیمیشن‌های نرم، و تعاملات کوچک ولی خوش‌احساسه. کارت‌ها رو ببین، روی هر پروژه کلیک کن تا توضیحات بیشتر رو ببینی.</p>
+          <div class="cta-row">
+            <button class="btn" onclick="document.querySelector('#projects').scrollIntoView({behavior:'smooth'})">مشاهده پروژه‌ها</button>
+            <a class="btn secondary" href="mailto:hello@example.com">تماس سریع</a>
+          </div>
+
+          <div style="margin-top:18px;color:var(--muted);font-size:13px">نکته: این نسخه فقط frontend هست — می‌تونی فرم تماس رو به API یا Zapier وصل کنی.</div>
+        </div>
+
+        <aside class="showcase" aria-label="نمایش">
+          <div class="preview" role="img" aria-label="پیش‌نمایش">
+            پیش‌نمایش تعاملی
+          </div>
+          <div class="meta">
+            <div class="tag">React • Next • Tailwind</div>
+            <div style="display:flex;gap:8px">
+              <button class="btn secondary" onclick="openModal('project-sample')">مشاهده</button>
+            </div>
+          </div>
+        </aside>
+      </section>
+
+      <section id="projects" class="projects" aria-labelledby="projects-title">
+        <h2 id="projects-title" style="grid-column:1/-1;margin:0 0 6px 0">پروژه‌ها</h2>
+
+        <!-- کارت‌ها -->
+        <article class="card" tabindex="0" role="button" onclick="openModal('p1')" onkeydown="if(event.key==='Enter') openModal('p1')">
+          <h4>داشبورد موسیقی</h4>
+          <p>یک داشبورد زیبا با انیمیشن‌های صوتی و تحلیل جریان‌ها.</p>
+        </article>
+
+        <article class="card" tabindex="0" role="button" onclick="openModal('p2')" onkeydown="if(event.key==='Enter') openModal('p2')">
+          <h4>وبلاگ تعاملی</h4>
+          <p>سیستم بلاگ با قابلیت واکنش‌پذیری بالا و Dark Mode خودکار.</p>
+        </article>
+
+        <article class="card" tabindex="0" role="button" onclick="openModal('p3')" onkeydown="if(event.key==='Enter') openModal('p3')">
+          <h4>اپ فروشگاهی</h4>
+          <p>فروشگاه آنلاین با تجربه کاربری ساده و افزایش تبدیل (conversion).</p>
+        </article>
+
+        <article class="card" tabindex="0" role="button" onclick="openModal('p4')" onkeydown="if(event.key==='Enter') openModal('p4')">
+          <h4>سیستم آمار</h4>
+          <p>داشبورد تجزیه و تحلیل با نمودارهای سفارشی و به‌روزرسانی زنده.</p>
+        </article>
+      </section>
+
+      <section id="about" style="padding:24px clamp(18px,4vw,72px)">
+        <div style="display:grid;grid-template-columns:1fr 340px;gap:24px;align-items:start">
+          <div>
+            <h3 style="margin-top:0">درباره این قالب</h3>
+            <p style="color:var(--muted)">این قالب برای نمایش یک نمونه frontend حرفه‌ای ساخته شده — متمرکز بر طراحی، دسترسی، و تعامل. می‌تونی آیتم‌ها رو عوض کنی، استایل‌ها رو سفارشی کنی، یا بخش‌هایی مثل فرم تماس را به سرور متصل کنی.</p>
+            <ul style="color:var(--muted)">
+              <li>واکنش‌گرا (responsive)</li>
+              <li>Dark/Light mode با ذخیره حالت</li>
+              <li>انیمیشن‌های نرم و hover-friendly</li>
+            </ul>
+          </div>
+
+          <div class="showcase">
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <div style="font-weight:700">تکنولوژی‌ها</div>
+              <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px">
+                <span class="tag">HTML</span>
+                <span class="tag">CSS</span>
+                <span class="tag">Vanilla JS</span>
+                <span class="tag">Canvas</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="contact" style="padding:24px clamp(18px,4vw,72px)">
+        <div style="max-width:900px;margin:auto;display:grid;grid-template-columns:1fr 320px;gap:20px">
+          <form id="contactForm" style="background:var(--card);padding:16px;border-radius:12px;border:1px solid var(--glass-border);">
+            <h3 style="margin-top:0">فرم تماس</h3>
+            <label style="display:block;margin-top:8px;color:var(--muted)">نام</label>
+            <input name="name" required style="width:100%;padding:10px;border-radius:10px;border:1px solid var(--glass-border);background:transparent;color:var(--text)">
+
+            <label style="display:block;margin-top:8px;color:var(--muted)">ایمیل</label>
+            <input name="email" type="email" required style="width:100%;padding:10px;border-radius:10px;border:1px solid var(--glass-border);background:transparent;color:var(--text)">
+
+            <label style="display:block;margin-top:8px;color:var(--muted)">پیام</label>
+            <textarea name="message" rows="4" required style="width:100%;padding:10px;border-radius:10px;border:1px solid var(--glass-border);background:transparent;color:var(--text)"></textarea>
+
+            <div style="margin-top:12px;display:flex;gap:10px;align-items:center">
+              <button type="submit" class="btn">ارسال پیام</button>
+              <button type="reset" class="btn secondary">پاک‌سازی</button>
+            </div>
+
+            <div id="formFeedback" style="margin-top:10px;color:var(--muted);font-size:13px"></div>
+          </form>
+
+          <aside style="display:flex;flex-direction:column;gap:12px">
+            <div class="showcase" style="padding:14px">
+              <div style="font-weight:700">راه‌های ارتباطی</div>
+              <div style="color:var(--muted);margin-top:6px">ایمیل: <a href="mailto:hello@example.com">hello@example.com</a></div>
+              <div style="color:var(--muted)">تلگرام: <span style="color:var(--text)">@yourhandle</span></div>
+              <div style="color:var(--muted)">مکان: تهران</div>
+            </div>
+
+            <div class="showcase" style="padding:14px">
+              <div style="font-weight:700">نکته</div>
+              <div style="color:var(--muted);margin-top:6px">فرم ارسال به صورت محلی بررسی می‌شود و می‌توانی آن را به webhook متصل کنی.</div>
+            </div>
+          </aside>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      © <span id="year"></span> — ساخته شده با ❤️ — نسخه نمونه
+    </footer>
+
+    <!-- modal -->
+    <div id="modal" class="modal" role="dialog" aria-modal="true" aria-hidden="true">
+      <div class="modal-card" role="document">
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:12px">
+          <strong id="modalTitle">جزئیات پروژه</strong>
+          <div style="display:flex;gap:8px;align-items:center">
+            <button class="close" onclick="closeModal()">بستن ✕</button>
+          </div>
+        </div>
+        <div id="modalBody" style="margin-top:12px;color:var(--muted)"></div>
+      </div>
+    </div>
+
+    <!-- cursor -->
+    <div id="fancyCursor" class="cursor" aria-hidden="true"></div>
+  </div>
+
+  <script>
+    // ---------- تنظیمات اولیه ----------
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // حالت تاریک/روشن با ذخیره‌سازی
+    const root = document.documentElement;
+    const themeToggle = document.getElementById('themeToggle');
+    const saved = localStorage.getItem('site-theme');
+    if(saved === 'light') root.classList.add('light');
+
+    themeToggle.addEventListener('click', () => {
+      root.classList.toggle('light');
+      localStorage.setItem('site-theme', root.classList.contains('light') ? 'light' : 'dark');
+    });
+
+    // ---------- modal ----------
+    const modal = document.getElementById('modal');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalBody = document.getElementById('modalBody');
+
+    const projects = {
+      'p1': {title:'داشبورد موسیقی', body:'یک داشبورد زیبا با ریل‌تایم آنالیز صوتی، پلیر داخلی و تجربه‌ کاربری عالی. ساخته شده با WebAudio API و custom charts.'},
+      'p2': {title:'وبلاگ تعاملی', body:'پلتفرم بلاگ با سئوی قوی و بارگذاری سریع؛ hostable روی هر سرور و کاملاً واکنش‌گرا.'},
+      'p3': {title:'اپ فروشگاهی', body:'فروشگاه با صفحه محصول پویا، فیلترها و تجربه‌ پرداخت روان.'},
+      'p4': {title:'سیستم آمار', body:'داشبورد آمار با به‌روزرسانی زنده و visualization پیشرفته.'},
+      'project-sample': {title:'نمونه پیش‌نمایش', body:'این پیش‌نمایش یک نمونه است که نشان می‌دهد چگونه می‌توان یک پروژه را در این قالب نمایش داد.'}
+    };
+
+    function openModal(id){
+      const p = projects[id] || {title:'جزئیات', body:'اطلاعات موجود نیست.'};
+      modalTitle.textContent = p.title;
+      modalBody.textContent = p.body;
+      modal.classList.add('open');
+      modal.setAttribute('aria-hidden','false');
+      // focus lock ساده
+      setTimeout(()=> modal.querySelector('.close').focus(), 100);
+    }
+    function closeModal(){
+      modal.classList.remove('open');
+      modal.setAttribute('aria-hidden','true');
+    }
+    modal.addEventListener('click', (e) => { if(e.target === modal) closeModal(); });
+    document.addEventListener('keydown', (e)=> { if(e.key === 'Escape') closeModal(); });
+
+    // ---------- فرم (محلی / mock) ----------
+    const form = document.getElementById('contactForm');
+    const feedback = document.getElementById('formFeedback');
+    form.addEventListener('submit', (ev) => {
+      ev.preventDefault();
+      const data = new FormData(form);
+      const payload = Object.fromEntries(data.entries());
+      // اینجا یک ارسال واقعی به سرور میتونه انجام بشه. فعلاً mock:
+      console.log('ارسال فرم (mock):', payload);
+      feedback.style.color = 'var(--accent2)';
+      feedback.textContent = 'پیام شما ثبت شد — این فقط شبیه‌سازی است.';
+      form.reset();
+      setTimeout(()=> feedback.textContent = '', 4000);
+    });
+
+    // ---------- cursor سفارشی ----------
+    const cursor = document.getElementById('fancyCursor');
+    document.addEventListener('mousemove', (e) => {
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top = e.clientY + 'px';
+    });
+    // بزرگ شدن روی عناصر قابل کلیک
+    const interactive = 'button, a, .card, .btn';
+    document.addEventListener('mouseover', (e) => {
+      if (e.target.closest(interactive)) cursor.classList.add('big');
+    });
+    document.addEventListener('mouseout', (e) => {
+      if (e.target.closest(interactive) === null) cursor.classList.remove('big');
+    });
+
+    // ---------- پس‌زمینه ذرات با canvas ----------
+    const canvas = document.getElementById('bgCanvas');
+    const ctx = canvas.getContext('2d');
+    let W, H, particles;
+
+    function resize() {
+      W = canvas.width = innerWidth;
+      H = canvas.height = innerHeight;
+    }
+    window.addEventListener('resize', resize);
+    resize();
+
+    function initParticles(){
+      particles = [];
+      const count = Math.round(Math.min(120, W * H / 17000));
+      for(let i=0;i<count;i++){
+        particles.push({
+          x: Math.random()*W,
+          y: Math.random()*H,
+          vx: (Math.random()-0.5)*0.4,
+          vy: (Math.random()-0.5)*0.4,
+          r: 0.6 + Math.random()*2.2,
+          hue: Math.random()*360
+        });
+      }
+    }
+    initParticles();
+
+    function draw(){
+      ctx.clearRect(0,0,W,H);
+      // خطوط بین ذرات نزدیک
+      for(let i=0;i<particles.length;i++){
+        const p = particles[i];
+        for(let j=i+1;j<particles.length;j++){
+          const q = particles[j];
+          const dx = p.x-q.x, dy = p.y-q.y;
+          const d2 = dx*dx+dy*dy;
+          if (d2 < 9000){
+            const alpha = 0.08 * (1 - d2/9000);
+            ctx.beginPath();
+            ctx.strokeStyle = `hsla(${(p.hue+q.hue)/2} 100% 60% / ${alpha})`.replace('%', '');
+            ctx.moveTo(p.x,p.y);
+            ctx.lineTo(q.x,q.y);
+            ctx.stroke();
+          }
+        }
+      }
+      // ذرات
+      for(let p of particles){
+        ctx.beginPath();
+        const g = ctx.createRadialGradient(p.x,p.y,p.r*0.1,p.x,p.y,p.r*6);
+        g.addColorStop(0, `hsla(${p.hue}deg 100% 75% / 0.9)`.replace('%',''));
+        g.addColorStop(1, `hsla(${p.hue}deg 100% 50% / 0.02)`.replace('%',''));
+        ctx.fillStyle = g;
+        ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+        ctx.fill();
+
+        p.x += p.vx;
+        p.y += p.vy;
+        if (p.x < -20) p.x = W+20;
+        if (p.x > W+20) p.x = -20;
+        if (p.y < -20) p.y = H+20;
+        if (p.y > H+20) p.y = -20;
+      }
+      requestAnimationFrame(draw);
+    }
+    requestAnimationFrame(draw);
+
+    // ---------- دسترسی و بهبودهای کوچک ----------
+    // نشانگر برای کاربر موبایل: پنهان کردن cursor
+    function handleTouch(){
+      document.getElementById('fancyCursor').style.display = 'none';
+      window.removeEventListener('touchstart', handleTouch);
+    }
+    window.addEventListener('touchstart', handleTouch, {passive:true});
+
+    // اگر خواستی: کلیدهای میان‌بر
+    document.addEventListener('keydown', (e) => {
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+        e.preventDefault();
+        document.querySelector('input[name="name"]').focus();
+      }
+    });
+  </script>
+</body>
+</html>
